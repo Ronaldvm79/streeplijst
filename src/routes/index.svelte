@@ -50,6 +50,8 @@ async function setBetaald(id,betaald) {
     <li>{id} {naam_kort}</li><button on:click={()=> setBetaald(id,betaald)}> betaald </button>{aantal} {betaald}
   {/each}
  {/if} 
+
+ nice
 <!-- {:catch error}
   <p>Something went wrong while fetching the data:</p>
   <pre>{error}</pre>
