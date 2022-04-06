@@ -4,6 +4,7 @@ import supabase from '$lib/db'
 import { onMount } from 'svelte';
 import { loading, strepen, loadTodos } from '$lib/streepStore'
 import { flip } from 'svelte/animate';
+import { now } from 'svelte/internal';
 
  var asc = true
 // async function getData() {
@@ -25,10 +26,12 @@ onMount(async () => {
 })
 
 async function setBetaald(id,betaald) {
+    var datum = !betaald ? new Date().toLocaleString() : null
+    
     
     const { error} = await supabase
   .from('strepen')
-  .update({'betaald': !betaald})
+  .update({'betaald': !betaald, 'betaal_datum': datum })
   //.eq('id', id)
     .match({id})
     
@@ -71,9 +74,9 @@ const sortStrepen= () => {
   {:then data} -->
   {#each $strepen as {id, aantal, betaald, gebruiker : {naam_kort}}(id)}
     <div animate:flip>
-    {#if !betaald}
+    <!-- {#if !betaald} -->
       <li>{id} {naam_kort}</li><button on:click={()=> setBetaald(id,betaald)}> betaald </button>{aantal} {betaald}
-      {/if}
+      <!-- {/if} -->
   </div>
   {/each}
  {/if} 
