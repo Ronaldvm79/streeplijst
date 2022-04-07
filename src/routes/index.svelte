@@ -68,17 +68,22 @@ const sortStrepen= () => {
 
 {:else}
 
-
+{#each $strepen as streep}
+{streep.gebruiker}
+{/each}
  <!-- {#await getData()}
   <p>Fetching data...</p>
   {:then data} -->
-  {#each $strepen as {id, aantal, betaald, gebruiker : {naam_kort}}(id)}
-    <div animate:flip>
+  {JSON.stringify($strepen)}
+  <!-- {#each $strepen as {id, aantal, betaald, gebruiker : {naam_kort}}(id)}
+    <div animate:flip> -->
     <!-- {#if !betaald} -->
-      <li>{id} {naam_kort}</li><button on:click={()=> setBetaald(id,betaald)}> betaald </button>{aantal} {betaald}
+      <!-- <li>{id} {naam_kort}</li><button on:click={()=> setBetaald(id,betaald)}> betaald </button>{aantal} {betaald} -->
       <!-- {/if} -->
-  </div>
-  {/each}
+  <!-- </div> -->
+
+
+  <!-- {/each} -->
  {/if} 
 
  <button on:click={()=>sortStrepen()}> sort </button>
