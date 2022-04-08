@@ -25,7 +25,16 @@ export const loadStrepen = async () => {
 		console.log(error);
 	}
 	strepen.set(data);
+
+
 };
+
+export const fetchRPC = async()=>{
+	const { data, error } = await supabase
+	.rpc('drinkers').select('*')
+	console.log(data)
+}
+fetchRPC();
 
 export const setBetaald = async (id, betaald) => {
 	var datum = !betaald ? new Date().toLocaleString() : null;
