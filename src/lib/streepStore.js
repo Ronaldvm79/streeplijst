@@ -6,34 +6,31 @@ export const drinkers = writable();
 export const loading = writable(false);
 
 export const loadUsers = async () => {
-
   const { data, error } = await supabase
     .from('gebruiker')
     .select('naam_kort')
-
-
+    if (error) {
+      console.log(error);
+    }
   drinkers.set(data)
-
-
 }
 
 
 export const loadStrepen = async () => {
-
   const { data, error } = await supabase
     .from('strepen')
     .select(`id,aantal, betaald, gebruiker (naam_kort) `)
-
   // const { data, error } = await supabase
   // .rpc('aantal').select('*')
   console.log(data)
 
-  if (error) throw new Error(error.message)
-
+  if (error) {
+    console.log(error);
+  }
   strepen.set(data);
 
 }
-//loadTodos()
+
 
 export const setBetaald = async (id, betaald) => {
   var datum = !betaald ? new Date().toLocaleString() : null;
