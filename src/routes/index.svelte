@@ -1,92 +1,52 @@
-
 <script>
-import supabase from '$lib/db'
-import { onMount } from 'svelte';
-import { loading, strepen, loadTodos } from '$lib/streepStore'
-import { flip } from 'svelte/animate';
-import { now } from 'svelte/internal';
+	import supabase from '$lib/db';
+	import { onMount } from 'svelte';
+	import { loading, strepen, drinkers, loadStrepen, loadUsers, setBetaald } from '$lib/streepStore';
+	import { flip } from 'svelte/animate';
+	var asc = true;
 
- var asc = true
-// async function getData() {
-//   const { data, error } = await supabase
-//     .from('strepen')
-//     .select(`id,aantal, betaald, gebruiker (naam_kort) `)
-   
-//   if (error) throw new Error(error.message)
-  
-//   return data
-// }
+	async function getData() {
+		await loadStrepen();
+		await loadUsers();
+	}
 
-onMount(async () => {
-    
 
-    await loadTodos()
-    
-    
-})
 
-async function setBetaald(id,betaald) {
-    var datum = !betaald ? new Date().toLocaleString() : null
-    
-    
-    const { error} = await supabase
-  .from('strepen')
-  .update({'betaald': !betaald, 'betaal_datum': datum })
-  //.eq('id', id)
-    .match({id})
-    
-  if(error){
-   console.log(error)}
-   strepen.update(($strepen) => {
-		let index = -1;
-		for (let i = 0; i < $strepen.length; i++) {
-			if ($strepen[i].id === id) {
-				index = i;
-				break;
-			}
-		}
-		if (index !== -1) {
-			$strepen[index].betaald = !$strepen[index].betaald;
-		}
-    console.log($strepen)
-    return $strepen
-    
-
-})
-}
-
-const sortStrepen= () => {
-
-  $strepen = ($strepen.sort((a,b) => asc ? a.aantal-b.aantal : b.aantal-a.aantal))
-  asc = !asc
-}
-
+	const sortStrepen = () => {
+		$strepen = $strepen.sort((a, b) => (asc ? a.aantal - b.aantal : b.aantal - a.aantal));
+		asc = !asc;
+	};
 </script>
 
-{#if $loading}
-    loading!
+{#await getData()}
+	loading
+{:then}
+	<input list="drinkers" />
+	<datalist id="drinkers">
+		{#each $drinkers as d}
+			<option>{d.naam_kort}</option>
+		{/each}
+	</datalist>
 
-{:else}
-
-{#each $strepen as streep}
+	<!-- {#each $strepen as streep}
 {streep.gebruiker}
-{/each}
- <!-- {#await getData()}
+{/each} -->
+	<!-- {#await getData()}
   <p>Fetching data...</p>
   {:then data} -->
-  {JSON.stringify($strepen)}
-  <!-- {#each $strepen as {id, aantal, betaald, gebruiker : {naam_kort}}(id)}
-    <div animate:flip> -->
-    <!-- {#if !betaald} -->
-      <!-- <li>{id} {naam_kort}</li><button on:click={()=> setBetaald(id,betaald)}> betaald </button>{aantal} {betaald} -->
-      <!-- {/if} -->
-  <!-- </div> -->
 
+	{#each $strepen as { id, aantal, betaald, gebruiker: { naam_kort } } (id)}
+		<div animate:flip>
+			<!-- {#if !betaald} -->
+			<li>{id} {naam_kort}</li>
+			<button on:click={() => setBetaald(id, betaald)}> betaald </button>{aantal}
+			{betaald}
+			<!-- {/if} -->
+		</div>
+	{/each}
+{/await}
 
-  <!-- {/each} -->
- {/if} 
-
- <button on:click={()=>sortStrepen()}> sort </button>
+<button on:click={() => sortStrepen()}> sort </button>
 <!-- {:catch error}
   <p>Something went wrong while fetching the data:</p>
   <pre>{error}</pre>
