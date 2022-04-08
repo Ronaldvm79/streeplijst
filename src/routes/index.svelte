@@ -1,12 +1,14 @@
 <script>
-	import { strepen, drinkers, loadStrepen, loadUsers, setBetaald } from '$lib/streepStore';
+	import { loading, strepen, drinkers, loadStrepen, loadUsers, setBetaald } from '$lib/streepStore';
 	import { flip } from 'svelte/animate';
 	
   var asc = true;
 	
-  async function getData() {
-		await loadStrepen();
+ const getData = async() => {
+	$loading = true	
+    await loadStrepen();
 		await loadUsers();
+  $loading = false
 	}
 
 	const sortStrepen = () => {
@@ -20,8 +22,8 @@
 {:then}
 	<input list="drinkers" />
 	<datalist id="drinkers">
-		{#each $drinkers as d}
-			<option>{d.naam_kort}</option>
+		{#each $drinkers as {naam_kort}}
+			<option>{naam_kort}</option>
 		{/each}
 	</datalist>
 
