@@ -1,37 +1,68 @@
 <script>
-	import { loading, strepen, drinkers, loadStrepen, loadUsers, setBetaald } from '$lib/streepStore';
+	import {
+		loading,
+		strepen,
+		drinkers,
+		strepenTotaal,
+		getStrepenTotaal,
+		loadStrepen,
+		loadUsers,
+		addStreep
+	} from '$lib/streepStore';
 	import { flip } from 'svelte/animate';
-	
-  var asc = true;
-	
- const getData = async() => {
-	$loading = true	
-    await loadStrepen();
-		await loadUsers();
-  $loading = false
-	}
+	import Details from '../components/Details.svelte';
+
+	var asc = true;
+	var drinker = '';
+	var drankjes = 1;
+
+	const getData = async () => {
+		$loading = true;
+			await loadStrepen();
+			await loadUsers();
+			await getStrepenTotaal();
+		$loading = false;
+	};
 
 	const sortStrepen = () => {
-    $strepen = $strepen.sort((a, b) => (asc ? a.aantal - b.aantal : b.aantal - a.aantal));
+		$strepen = $strepen.sort((a, b) => (asc ? a.aantal - b.aantal : b.aantal - a.aantal));
 		asc = !asc;
+	};
+
+	const getDrinker = () => {
+		let obj = $drinkers.find((o) => o.naam_kort === drinker);
+		addStreep(drankjes, obj.id);
+		drinker = '';
 	};
 </script>
 
 {#await getData()}
 	loading
 {:then}
-	<input list="drinkers" />
+	<input list="drinkers" bind:value={drinker} />
 	<datalist id="drinkers">
-		{#each $drinkers as {naam_kort}}
+		{#each $drinkers as { naam_kort, id }}
 			<option>{naam_kort}</option>
 		{/each}
 	</datalist>
 
-	{#each $strepen as { id, aantal, betaald, gebruiker: { naam_kort } } (id)}
+	<select bind:value={drankjes}>
+		{#each Array(3) as _, i}
+			<option value={i + 1}>{i + 1}</option>
+		{/each}
+	</select>
+	<button disabled={drinker == ''} on:click={() => getDrinker()}>Add</button>
+
+	{#each $strepenTotaal as { gebruiker, aantal, naam_kort } (gebruiker)}
 		<div animate:flip>
-			<li>{id} {naam_kort}</li>
-			<button on:click={() => setBetaald(id, betaald)}> betaald </button>{aantal}
-			{betaald}
+			<Details option={gebruiker}>
+				<span slot="head">{naam_kort} ({aantal})</span>
+				<div slot="details">
+					<!-- <button on:click={() => setBetaald(id, betaald)}> betaald </button> -->
+
+					<!-- {betaald} -->
+				</div>
+			</Details>
 		</div>
 	{/each}
 
