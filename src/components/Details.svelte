@@ -3,6 +3,9 @@
 	export let option;
 	import { slide } from 'svelte/transition';
 	import { strepen, setBetaald, drinkers } from '$lib/streepStore';
+    
+   
+
 
 	const handleClick = () => (open = !open);
 
@@ -16,9 +19,11 @@
 		(drinker) => drinker.gebruiker == option && drinker.betaald == true
 	).sort((a,b)=>b.id-a.id).slice(0,5);
 
-
+   
 
 </script>
+
+
 
 <div class=" ">
 	<div class="flex items-center justify-between rounded-lg px-3 py-1 m-1 border-2">

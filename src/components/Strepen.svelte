@@ -2,7 +2,7 @@
 	import { strepenTotaal, strepen } from '$lib/streepStore';
 	import Details from '../components/Details.svelte';
 	import { flip } from 'svelte/animate';
-
+	import Streepjes from '../components/Streepjes.svelte';
 	var asc = true;
 
 	const sortStrepen = () => {
@@ -14,7 +14,7 @@
 {#each $strepenTotaal as { gebruiker, aantal, naam_kort } (gebruiker)}
 	<div animate:flip>
 		<Details option={gebruiker}>
-			<span slot="head">{naam_kort} ({aantal})</span>
+			<span slot="head">{naam_kort} ({aantal}) <Streepjes {aantal}/></span>
 			<div slot="details">
 				<!-- <button on:click={() => setBetaald(id, betaald)}> betaald </button> -->
 

@@ -10,9 +10,10 @@ var showNieuweDrinker = false
 var naamKleur = "bg-white"
 
 const getDrinker = () => {
-    var obj = $drinkers.find((o) => o.naam_kort === drinker);
+    var obj = $drinkers.find((o) => o.naam_kort.toLowerCase() === drinker.toLowerCase());
     obj ?  drinkerBekend = true : drinkerBekend = false;
     drinkerId = obj.id
+    console.log(obj)
      
     //drinker = '';
 };
@@ -25,13 +26,15 @@ const checkStreep = () => {
     drinkerBekend ? 
         addStreep(drankjes, drinkerId) : alert("onbekende drinker")
         drinker = ''
-
-
-}
+        drinkerBekend = false
+        
+    }
+  
 
 </script>
 
 <div class="flex m-1">
+    
     <input list="drinkers" placeholder="Vul een naam " bind:value={drinker} class="border-2 rounded-lg p-2 " class:bg-rose-100={!drinkerBekend && drinker!==''} class:bg-green-100={drinkerBekend} class:bg-white={drinker==''} on:input={() => getDrinker()}/>
     <datalist id="drinkers">
         {#each $drinkers as { naam_kort, id }}
