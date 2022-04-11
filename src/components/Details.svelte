@@ -2,7 +2,7 @@
 	export let open = false;
 	export let option;
 	import { slide } from 'svelte/transition';
-	import { drinkers, strepen, setBetaald } from '$lib/streepStore';
+	import { strepen, setBetaald } from '$lib/streepStore';
 	const handleClick = () => (open = !open);
 
 	var streepDrinkerNB;
@@ -16,17 +16,28 @@
 	);
 </script>
 
-<div class="accordion">
-	<div class="header">
-		<div class="text">
+<div class=" ">
+	<div class="flex items-center justify-between rounded-lg px-3 py-1 m-1 border-2">
+		<div>
 			<slot name="head" />
 		</div>
-		<button on:click={() => setBetaald(option)}> betaald </button>
-		<button on:click={handleClick}> +/- </button>
+		<div>
+			<button
+				class="btn"
+				on:click={() => setBetaald(option)}
+			>
+				betaald
+			</button>
+			<button
+				class="btn"
+				on:click={handleClick}
+			>
+				+/-
+			</button>
+		</div>
 	</div>
-
 	{#if open}
-		<div class="details" transition:slide>
+		<div class="bg-blue-100 m-2" transition:slide>
 			<!-- {JSON.stringify(streepDrinker)}  -->
 			Niet Betaald
 			{#each streepDrinkerNB as drinker}
@@ -49,22 +60,4 @@
 </div>
 
 <style>
-	div.accordion {
-		margin: 1rem 0;
-	}
-
-	div.header {
-		display: flex;
-		width: 100%;
-	}
-
-	div.header .text {
-		flex: 1;
-		margin-right: 5px;
-	}
-
-	div.details {
-		background-color: #cecece;
-		padding: 1rem;
-	}
 </style>

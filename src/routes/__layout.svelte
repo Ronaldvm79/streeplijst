@@ -1,27 +1,19 @@
 <script>
-import { loading } from "$lib/streepStore";
+	import '../app.css';
+	import { loading } from '$lib/streepStore';
 </script>
-Streeplijst
+
+
 
 {#if $loading}
-
-<div class="loader"> <img src="/Spin-1s-410px.svg" alt="spinner"> </div>
-
-
+	<div class="modal z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center p-8 lg:p-0"><img src="/Spin-1s-410px.svg" alt="spinner" /></div>
 {/if}
 
-<slot/>
+<div class="container mx-auto my-6 max-w-lg">     
+ 
+<slot />
 
+</div>
 <style>
-    .loader {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: grid;
-        place-items: center;
-        background-color: white;
-        z-index: 999;
-    }
+
 </style>
