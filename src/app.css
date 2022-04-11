@@ -5,6 +5,6 @@
 
 @layer components {
     .btn {
-      @apply bg-blue-400 border-2 text-gray-800 rounded-lg border-blue-500 p-1 m-1  shadow disabled:text-gray-300 disabled:bg-blue-50 disabled:border-blue-200;
+      @apply bg-blue-400  border-2 text-gray-800 rounded-lg border-blue-500 p-2 m-1  shadow disabled:text-gray-300 disabled:bg-blue-50 disabled:border-blue-200;
     }
 }

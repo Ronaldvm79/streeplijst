@@ -15,7 +15,7 @@
 
 <div class="font-bold text-blue-400 flex justify-center text-lg ">Streeplijst</div>
 {#await getData()}
-	
+.	
 {:then}
 	<NieuweStreep />
 	<Strepen />

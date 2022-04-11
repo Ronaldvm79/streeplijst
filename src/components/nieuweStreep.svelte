@@ -24,6 +24,7 @@ const addNieuwDrinker = () => {
 const checkStreep = () => {
     drinkerBekend ? 
         addStreep(drankjes, drinkerId) : alert("onbekende drinker")
+        drinker = ''
 
 
 }
@@ -38,7 +39,7 @@ const checkStreep = () => {
         {/each}
     </datalist>
 
-    <select bind:value={drankjes}>
+    <select bind:value={drankjes} class="border-2 rounded-lg p-2 ml-1">
         {#each Array(3) as _, i}
             <option value={i + 1}>{i + 1}</option>
         {/each}
@@ -51,5 +52,5 @@ const checkStreep = () => {
 
 
 {#if showNieuweDrinker}
-<Modal on:close={() => addNieuwDrinker()} title="Nieuwe Drinker" />
+<Modal on:close={() => addNieuwDrinker()}  title="Nieuwe Drinker" />
 {/if}
