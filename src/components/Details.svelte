@@ -2,7 +2,8 @@
 	export let open = false;
 	export let option;
 	import { slide } from 'svelte/transition';
-	import { strepen, setBetaald } from '$lib/streepStore';
+	import { strepen, setBetaald, drinkers } from '$lib/streepStore';
+
 	const handleClick = () => (open = !open);
 
 	var streepDrinkerNB;
@@ -13,7 +14,10 @@
 	);
 	$: streepDrinkerBet = $strepen.filter(
 		(drinker) => drinker.gebruiker == option && drinker.betaald == true
-	);
+	).sort((a,b)=>b.id-a.id).slice(0,5);
+
+
+
 </script>
 
 <div class=" ">
@@ -42,13 +46,13 @@
 			Niet Betaald
 			{#each streepDrinkerNB as drinker}
 				<ul>
-					<li>{drinker.aantal}</li>
+					<li>{drinker.aantal} </li>
 				</ul>
 			{/each}
 			Betaald
 			{#each streepDrinkerBet as drinker}
 				<ul>
-					<li>{drinker.aantal}</li>
+					<li>{drinker.aantal} - {new Date(Date.parse(drinker.betaal_datum)).getMonth()} </li>
 				</ul>
 			{/each}
 			<slot name="details">

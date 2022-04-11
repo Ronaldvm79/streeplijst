@@ -57,24 +57,24 @@ export const setBetaald = async (id) => {
 	const { error } = await supabase
 		.from('strepen')
 		.update({ betaald: true, betaal_datum: datum })
-		.eq('gebruiker', id);
+		.eq('gebruiker', id )
+		.eq('betaald', false);
 
 	if (error) {
 		console.log(error);
 	}
 
-	strepen.update((strepen) => {
-		let index = -1;
-		for (let i = 0; i < strepen.length; i++) {
-			if (strepen[i].id === id) {
-				index = i;
-				break;
+	strepen.update((streep) => {
+		
+		for (let i = 0; i < streep.length; i++) {
+			if (streep[i].gebruiker === id && streep[i].betaald == false) {
+				streep[i].betaald = true
+				streep[i].betaal_datum = new Date(datum);
+			};
 			}
-		}
-		if (index !== -1) {
-			strepen[index].betaald = !strepen[index].betaald;
-		}
-
-		return strepen;
+		
+		
+		return streep;
+		
 	});
 };
