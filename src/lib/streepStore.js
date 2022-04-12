@@ -41,7 +41,8 @@ export const getStrepenTotaal = async () => {
 getStrepenTotaal();
 
 export const addStreep = async (aantal, gebruiker) => {
-	const { data, error } = await supabase.from('strepen').insert([{ aantal, gebruiker }]);
+	var datum = new Date().toLocaleString();
+	const { data, error } = await supabase.from('strepen').insert([{ created_at: datum, aantal, gebruiker }]);
 
 	if (error) {
 		return console.error(error);
@@ -49,6 +50,19 @@ export const addStreep = async (aantal, gebruiker) => {
 	
 	strepen.update((cur) => [...cur, data[0]]);
 };
+
+export const addStreper = async (email, naam_lang, naam_kort, bier) => {
+	
+	const { data, error } = await supabase.from('gebruiker').insert([{ email,naam_lang, naam_kort, bier }]);
+
+	if (error) {
+		return console.error(error);
+	}
+	
+	drinkers.update((cur) => [...cur, data[0]]);
+	console.log(drinkers)
+};
+
 
 export const setBetaald = async (id) => {
 	// var datum = !betaald ? new Date().toLocaleString() : null;
