@@ -14,6 +14,7 @@ const strepenSub = supabase
 		//console.log(payload);
 	})
 	.subscribe();
+	// Als er gestreept wordt, de totalen opnieuw ophalen - op basis van een Subscription
 
 export const loadUsers = async () => {
 	const { data, error } = await supabase.from('gebruiker').select('*');
@@ -21,7 +22,7 @@ export const loadUsers = async () => {
 		console.log(error);
 	}
 	drinkers.set(data);
-};
+}; // Gebruikers (strepers) ophalen
 
 export const loadStrepen = async () => {
 	const { data, error } = await supabase.from('strepen').select('*');
@@ -31,14 +32,14 @@ export const loadStrepen = async () => {
 		console.log(error);
 	}
 	strepen.set(data);
-};
+}; // Strepen ophalen
 
 export const getStrepenTotaal = async () => {
 	const { data, error } = await supabase.rpc('drinkers').select('*');
 
 	strepenTotaal.set(data);
 };
-getStrepenTotaal();
+getStrepenTotaal(); // Totalen ophalen
 
 export const addStreep = async (aantal, gebruiker) => {
 	var datum = new Date().toLocaleString();
@@ -49,7 +50,7 @@ export const addStreep = async (aantal, gebruiker) => {
 	}
 	
 	strepen.update((cur) => [...cur, data[0]]);
-};
+}; // NIeuwe streep toevoegen
 
 export const addStreper = async (email, naam_lang, naam_kort, bier) => {
 	
@@ -60,8 +61,8 @@ export const addStreper = async (email, naam_lang, naam_kort, bier) => {
 	}
 	
 	drinkers.update((cur) => [...cur, data[0]]);
-	console.log(drinkers)
-};
+	
+}; // Nieuwe Streper toevoegen (en store updaten)
 
 
 export const setBetaald = async (id) => {
@@ -91,4 +92,4 @@ export const setBetaald = async (id) => {
 		return streep;
 		
 	});
-};
+}; // Alle niet betaalde strepen van een streper op betaald zetten (en Store updaten)

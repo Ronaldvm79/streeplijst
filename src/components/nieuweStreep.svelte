@@ -3,7 +3,7 @@
 	import Modal from './Modal.svelte';
     import NieuweDrinker from './nieuweDrinker.svelte';
 
-	var drinker = '';
+	var drinker = ''; 
 	var drankjes = 1;
 	var drinkerId;
 	var drinkerBekend = false;
@@ -17,12 +17,13 @@
 		obj ? (drinkerBekend = true) : (drinkerBekend = false);
 		drinkerBekend ? drinkerId = obj.id : ''
 
-		//drinker = '';
+		//check of Streper bekend is, en haal z'n ID nummer op (op te kunnen synchroniseren)
 	};
 
 	const addNieuwDrinker = () => {
 		showNieuweDrinker = !showNieuweDrinker;
         getDrinker()
+        //toggle the Modal, en ververs de drinkers
 	};
 
 	const checkStreep = () => {
@@ -30,7 +31,7 @@
 		drinker = '';
 		drinkerBekend = false;
 		drankjes = 1;
-	};
+	}; // check of er gestreept mag worden **NOG UITWERKEN**
 </script>
 
 <div class="flex m-1">
