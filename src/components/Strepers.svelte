@@ -1,6 +1,6 @@
 <script>
 	import { strepenTotaal } from '$lib/streepStore';
-	import Details from '../components/Details.svelte';
+	import StreperDetails from '../components/streperDetails.svelte';
 	import { flip } from 'svelte/animate';
 	import Streepjes from '../components/Streepjes.svelte';
 	var asc = true;
@@ -13,10 +13,10 @@
 
 {#each $strepenTotaal as { gebruiker, aantal, naam_kort } (gebruiker)}
 	<div animate:flip>
-		<Details option={gebruiker}>
-			<span slot="head">{naam_kort} ({aantal}) <Streepjes {aantal}/></span>
+		<StreperDetails {gebruiker}> 
+			<span slot="titel">{naam_kort} ({aantal}) <Streepjes {aantal}/></span>
 
-		</Details>
+		</StreperDetails>
 	</div>
 {/each}
 

@@ -1,35 +1,35 @@
 <script>
-	import { drinkers, addStreper } from '$lib/streepStore';
+	import { strepers, addStreper } from '$lib/streepStore';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
-	export let drinker;
+	export let streper;
 	let email = ''; 
 	var error
     var naam;
 	var bier = false;
 	var emailOK = true;
-	var drinkerBekend = false;
+	var streperBekend = false;
 	var emailBekend = false;
 
 	const validateEmail = () => {
 		var re = /\S+@\S+\.\S+/;
 		emailOK = re.test(email);
-		emailBekend = $drinkers.find((o) => o.email.toLowerCase() === email.toLowerCase());
+		emailBekend = $strepers.find((o) => o.email.toLowerCase() === email.toLowerCase());
 		//checke of het email adres aan het juiste formaat voldoet
         // check of het email adres al bekend is
 	};
 
-	const validateDrinker = () => {
-		drinkerBekend = $drinkers.find((o) => o.naam_kort.toLowerCase() === drinker.toLowerCase());
+	const validateStreper = () => {
+		streperBekend = $strepers.find((o) => o.naam_kort.toLowerCase() === streper.toLowerCase());
 		// check of the streepnaam nog niet bekend is
 
 	};
 
 	const slaOp = async () => {
-		if (emailOK && !drinkerBekend && !emailBekend && naam && email){
-        await addStreper(email, naam, drinker, bier);
+		if (emailOK && !streperBekend && !emailBekend && naam && email){
+        await addStreper(email, naam, streper, bier);
 		dispatch('close');} else {
             error = "Niet alle gegevens zijn correct ingevuld"
         }
@@ -43,10 +43,10 @@
     <label class="mb-2" for="naam"> Streepnaam: </label>
 	<input
 		class="border-2 rounded-lg p-2 mb-2 "
-		on:blur={() => validateDrinker()}
-		bind:value={drinker}
+		on:blur={() => validateStreper()}
+		bind:value={streper}
 	/>
-	{#if drinkerBekend}<span class="text-red-400">Deze streper bestaat al!</span>{/if}
+	{#if streperBekend}<span class="text-red-400">Deze streper bestaat al!</span>{/if}
 	<label class="mb-2" for="naam"> Voor en Achternaam: </label>
 
 	<input class="border-2 rounded-lg p-2 mb-2 " bind:value={naam} />

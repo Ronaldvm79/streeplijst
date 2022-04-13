@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import supabase from '$lib/db.js';
 
 export const strepen = writable([]);
-export const drinkers = writable();
+export const strepers = writable();
 export const strepenTotaal = writable();
 
 export const loading = writable(false);
@@ -16,18 +16,16 @@ const strepenSub = supabase
 	.subscribe();
 	// Als er gestreept wordt, de totalen opnieuw ophalen - op basis van een Subscription
 
-export const loadUsers = async () => {
+export const getStrepers = async () => {
 	const { data, error } = await supabase.from('gebruiker').select('*');
 	if (error) {
 		console.log(error);
 	}
-	drinkers.set(data);
+	strepers.set(data);
 }; // Gebruikers (strepers) ophalen
 
-export const loadStrepen = async () => {
+export const getStrepen = async () => {
 	const { data, error } = await supabase.from('strepen').select('*');
-	// const { data, error } = await supabase
-	// .rpc('aantal').select('*')
 	if (error) {
 		console.log(error);
 	}
@@ -35,14 +33,14 @@ export const loadStrepen = async () => {
 }; // Strepen ophalen
 
 export const getStrepenTotaal = async () => {
-	const { data, error } = await supabase.rpc('drinkers').select('*');
+	const { data, error } = await supabase.rpc('strepentotaal').select('*');
 
 	strepenTotaal.set(data);
 };
 getStrepenTotaal(); // Totalen ophalen
 
 export const addStreep = async (aantal, gebruiker) => {
-	var datum = new Date().toLocaleString();
+	var datum = new Date()
 	const { data, error } = await supabase.from('strepen').insert([{ created_at: datum, aantal, gebruiker }]);
 
 	if (error) {
@@ -60,14 +58,14 @@ export const addStreper = async (email, naam_lang, naam_kort, bier) => {
 		return console.error(error);
 	}
 	
-	drinkers.update((cur) => [...cur, data[0]]);
+	strepers.update((cur) => [...cur, data[0]]);
 	
 }; // Nieuwe Streper toevoegen (en store updaten)
 
 
 export const setBetaald = async (id) => {
 	// var datum = !betaald ? new Date().toLocaleString() : null;
-	var datum = new Date().toLocaleString();
+	var datum = new Date()
 
 	const { error } = await supabase
 		.from('strepen')

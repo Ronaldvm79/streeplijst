@@ -1,26 +1,23 @@
 <script>
-	export let open = false;
-	export let option;
+	export let detailsOpen = false;
+	export let gebruiker;
+	
 	import { slide } from 'svelte/transition';
-	import { strepen, setBetaald, drinkers } from '$lib/streepStore';
+	import { strepen, setBetaald } from '$lib/streepStore';
 	import { convDatum } from '$lib/utils';
 
-	var result;
-
-	const handleClick = () => (open = !open);
+	const toggleDetails = () => (detailsOpen = !detailsOpen);
 
 	var streepDrinkerNB;
 	var streepDrinkerBet;
 
 	$: streepDrinkerNB = $strepen.filter(
-		(drinker) => drinker.gebruiker == option && drinker.betaald == false
-	);
-	// $: streepDrinkerBet = $strepen.filter(
-	// 	(drinker) => drinker.gebruiker == option && drinker.betaald == true
-	// ).sort((a,b)=>b.id-a.id).slice(0,5);
+		(drinker) => drinker.gebruiker == gebruiker && drinker.betaald == false
+	); // filter de niet betaalde strepen 
+
 	$: streepDrinkerBet = Object.values(
 		$strepen
-			.filter((drinker) => drinker.gebruiker == option && drinker.betaald == true)
+			.filter((drinker) => drinker.gebruiker == gebruiker && drinker.betaald == true)
 			.sort((a, b) => b.id - a.id)
 			.reduce(
 				(r, o) => (
@@ -31,22 +28,23 @@
 				),
 				{}
 			)
-	).slice(0, 5);
+	).slice(0, 5); // Groepeer / Sorteer / Filter de betaalde strepen
 </script>
 
 <div class=" ">
 	<div class="flex items-center justify-between rounded-lg px-3 py-1 m-1 border-2">
 		<div>
-			<slot name="head" />
+			<slot name="titel" />
 		</div>
 		<div>
-			<button class="btn" on:click={() => setBetaald(option)}> betaald </button>
-			<button class="btn" on:click={handleClick}> +/- </button>
+			{gebruiker}
+			<button class="btn" on:click={() => setBetaald(gebruiker)}> betaald </button>
+			<button class="btn" on:click={toggleDetails}> +/- </button>
 		</div>
 	</div>
-	{#if open}
+	{#if detailsOpen}
 		<div class="bg-blue-100 m-2" transition:slide>
-			<!-- {JSON.stringify(streepDrinker)}  -->
+			
 			Niet Betaald
 			{#each streepDrinkerNB as drinker}
 				<ul>
