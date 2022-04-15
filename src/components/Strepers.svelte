@@ -6,16 +6,17 @@
 	var asc = true;
 
 	const sortStrepen = () => {
-		$strepenTotaal = $strepenTotaal.sort((a, b) => (asc ? a.aantal - b.aantal : b.aantal - a.aantal));
+		$strepenTotaal = $strepenTotaal.sort((a, b) =>
+			asc ? a.aantal - b.aantal : b.aantal - a.aantal
+		);
 		asc = !asc;
 	};
 </script>
 
 {#each $strepenTotaal as { gebruiker, aantal, naam_kort } (gebruiker)}
 	<div animate:flip>
-		<StreperDetails {gebruiker} {naam_kort}> 
-			<span slot="titel">{naam_kort} ({aantal}) <Streepjes {aantal}/></span>
-
+		<StreperDetails {gebruiker} {naam_kort}>
+			<span slot="titel">{naam_kort} ({aantal}) <Streepjes {aantal} /></span>
 		</StreperDetails>
 	</div>
 {/each}
