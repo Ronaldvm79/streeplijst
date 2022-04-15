@@ -15,8 +15,8 @@
 
 {#each $strepenTotaal as { gebruiker, aantal, naam_kort } (gebruiker)}
 	<div animate:flip>
-		<StreperDetails {gebruiker} {naam_kort}>
-			<span slot="titel">{naam_kort} ({aantal}) <Streepjes {aantal} /></span>
+		<StreperDetails {gebruiker} {naam_kort} {aantal}>
+			<span slot="titel">{naam_kort} ({aantal}) </span>
 		</StreperDetails>
 	</div>
 {/each}

@@ -2,19 +2,28 @@
 	export let detailsOpen = false;
 	export let gebruiker;
 	export let naam_kort;
+	export let aantal;
 	
 	import { slide } from 'svelte/transition';
 	import { strepen, setBetaald } from '$lib/streepStore';
 	import { convDatum } from '$lib/utils';
+	import Streepjes from '../components/Streepjes.svelte';
 
 	const toggleDetails = () => (detailsOpen = !detailsOpen);
 
 	var streepDrinkerNB;
 	var streepDrinkerBet;
+	var streepOudste;
+	var streepVerschil;
 
 	$: streepDrinkerNB = $strepen.filter(
 		(drinker) => drinker.gebruiker == gebruiker && drinker.betaald == false
 	); // filter de niet betaalde strepen 
+
+	$: streepOudste = streepDrinkerNB.reduce((acc, cur) => !acc.created_at || (cur.created_at && new Date(cur.created_at).getTime() < new Date(acc.created_at).getTime()) ? cur : acc)
+	$:	streepVerschil = (Date.now()-Date.parse(streepOudste.created_at))/(1000*60*60*24)
+
+	
 
 	$: streepDrinkerBet = Object.values(
 		$strepen
@@ -34,8 +43,13 @@
 
 <div class=" ">
 	<div class="flex items-center justify-between rounded-lg px-3 py-1 m-1 border-2">
-		<div>
+		<div class="flex">
 			<slot name="titel" />
+			{#if streepVerschil > 1}
+			<div class="text-xs mb-2 ml-2 px-2 bg-red-200 text-red-800 rounded-full"> Wanbetaler</div>
+			
+			{/if}
+			<Streepjes {aantal} />
 		</div>
 		<div>
 			{gebruiker}
@@ -49,7 +63,7 @@
 			Niet Betaald
 			{#each streepDrinkerNB as drinker}
 				<ul>
-					<li>{drinker.aantal}</li>
+					<li>{drinker.aantal} {drinker.created_at}</li>
 				</ul>
 			{/each}
 			Betaald
