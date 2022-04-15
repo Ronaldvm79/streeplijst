@@ -2,7 +2,7 @@
 	import { flip } from 'svelte/animate';
 	import { fly } from 'svelte/transition';
 	import { notifications } from '$lib/toastStore';
-	import { userIcon, successIcon, errorIcon, warningIcon, infoIcon } from '$lib/icons';
+	import { defaultIcon, successIcon, errorIcon, warningIcon, infoIcon } from '$lib/icons';
 
 	import Icon from '../components/Icon.svelte';
 
@@ -19,7 +19,7 @@
 		success: successIcon,
 		warning: warningIcon,
 		info: infoIcon,
-		default: userIcon
+		default: defaultIcon
 	};
 </script>
 
@@ -36,7 +36,7 @@
 				<Icon d={icons[notification.type]} stroke="white" size="1.5em" />
 			</div>
 			<div class="py-3 px-2 block text-white">{notification.message}</div>
-			{#if notification.icon}<i class={notification.icon} />{/if}
+			
 		</div>
 	{/each}
 </div>
