@@ -2,6 +2,7 @@
 	import { strepers, addStreep } from '$lib/streepStore';
 	import Modal from './Modal.svelte';
     import NieuweStreper from './nieuweStreper.svelte';
+    import {notifications} from '$lib/toastStore.js'
 
 	var streper = '';  // invoerveld streper
 	var aantalStrepen = 1; // aantal te strepen drankjes
@@ -27,7 +28,7 @@
 	};
 
 	const checkStreep = () => {
-		streperBekend ? addStreep(aantalStrepen, streperId) : alert('onbekende streper');
+		streperBekend ? addStreep(aantalStrepen, streperId,streper) :notifications.danger('Onbekende Gebruiker! Geen boeking gemaakt!', 2000);
 		streper = '';
 		streperBekend = false;
 		aantalStrepen = 1;

@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import supabase from '$lib/db.js';
+import {notifications} from '$lib/toastStore.js'
 
 export const strepen = writable([]);
 export const strepers = writable();
@@ -39,15 +40,16 @@ export const getStrepenTotaal = async () => {
 };
 getStrepenTotaal(); // Totalen ophalen
 
-export const addStreep = async (aantal, gebruiker) => {
+export const addStreep = async (aantal, gebruiker,streper) => {
 	var datum = new Date()
 	const { data, error } = await supabase.from('strepen').insert([{ created_at: datum, aantal, gebruiker }]);
 
 	if (error) {
 		return console.error(error);
 	}
-	
+	console.log(Object.values(data[0]))
 	strepen.update((cur) => [...cur, data[0]]);
+	notifications.success(aantal + (aantal>1 ? ' streepjes bij ' : ' streepje bij ') + streper + ' genoteerd!', 1500)
 }; // NIeuwe streep toevoegen
 
 export const addStreper = async (email, naam_lang, naam_kort, bier) => {
