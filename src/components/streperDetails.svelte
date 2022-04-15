@@ -1,6 +1,7 @@
 <script>
 	export let detailsOpen = false;
 	export let gebruiker;
+	export let naam_kort;
 	
 	import { slide } from 'svelte/transition';
 	import { strepen, setBetaald } from '$lib/streepStore';
@@ -38,7 +39,7 @@
 		</div>
 		<div>
 			{gebruiker}
-			<button class="btn" on:click={() => setBetaald(gebruiker)}> betaald </button>
+			<button class="btn" on:click={() => setBetaald(gebruiker, naam_kort)}> betaald </button>
 			<button class="btn" on:click={toggleDetails}> +/- </button>
 		</div>
 	</div>

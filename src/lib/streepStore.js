@@ -47,7 +47,7 @@ export const addStreep = async (aantal, gebruiker,streper) => {
 	if (error) {
 		return console.error(error);
 	}
-	console.log(Object.values(data[0]))
+
 	strepen.update((cur) => [...cur, data[0]]);
 	notifications.success(aantal + (aantal>1 ? ' streepjes bij ' : ' streepje bij ') + streper + ' genoteerd!', 1500)
 }; // NIeuwe streep toevoegen
@@ -65,7 +65,7 @@ export const addStreper = async (email, naam_lang, naam_kort, bier) => {
 }; // Nieuwe Streper toevoegen (en store updaten)
 
 
-export const setBetaald = async (id) => {
+export const setBetaald = async (id, naam_kort) => {
 	// var datum = !betaald ? new Date().toLocaleString() : null;
 	var datum = new Date()
 
@@ -78,7 +78,7 @@ export const setBetaald = async (id) => {
 	if (error) {
 		console.log(error);
 	}
-
+	notifications.success(naam_kort +' heeft betaald!!', 1500)
 	strepen.update((streep) => {
 		
 		for (let i = 0; i < streep.length; i++) {

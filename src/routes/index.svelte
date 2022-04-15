@@ -3,8 +3,9 @@
 	
 	import Strepers from '../components/Strepers.svelte';
 	import NieuweStreep from '../components/nieuweStreep.svelte';
-	import {notifications} from '$lib/toastStore.js'
+
 	import Toast from '../components/Toast.svelte'
+
 
 	const getData = async () => {
 		$loading = true;
@@ -25,11 +26,11 @@
 {:then}
 	<NieuweStreep />
 	<Strepers />
+	<Toast />
 {:catch error}
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>
 {/await}
 
 
-<Toast />
 
