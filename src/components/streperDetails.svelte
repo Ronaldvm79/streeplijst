@@ -29,8 +29,8 @@
 						? cur
 						: acc
 			  )
-			: '';
-	$: streepVerschil = (Date.now() - Date.parse(streepOudste.created_at)) / (1000 * 60 * 60 * 24);
+			: ''; // bepaal oudste niet gestreepte streepje (extra check op bestaan van Object - anders reduce error)
+	$: streepVerschil = (Date.now() - Date.parse(streepOudste.created_at)) / (1000 * 60 * 60 * 24); // check het verschil tussen het oudste streepje en de huidige tijd
 
 	$: streepDrinkerBet = Object.values(
 		$strepen
