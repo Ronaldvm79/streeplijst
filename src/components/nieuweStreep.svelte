@@ -25,21 +25,21 @@
    
     $:strepers
 
-	const getStreperOld = () => {
-		var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === streper.toLowerCase());
-		obj ? (streperBekend = true) : (streperBekend = false);
-		streperBekend ? streperId = obj.id : ''
+	// const getStreperOld = () => {
+	// 	var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === streper.toLowerCase());
+	// 	obj ? (streperBekend = true) : (streperBekend = false);
+	// 	streperBekend ? streperId = obj.id : ''
 
-		//check of Streper bekend is, en haal z'n ID nummer op (op te kunnen synchroniseren)
-		// 
-	};
+	// 	//check of Streper bekend is, en haal z'n ID nummer op (op te kunnen synchroniseren)
+	// 	// 
+	// };
 
 	const getStreper= (event) => {
 		// var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === streper.toLowerCase());
 		// obj ? (streperBekend = true) : (streperBekend = false);
 		// streperBekend ? streperId = obj.id : ''
 		console.log(event)
-		var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === event.detail.naam_kort.toLowerCase());
+		var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === event?.detail.naam_kort.toLowerCase());
 		obj ? (streperBekend = true) : (streperBekend = false);
 		streperBekend ? streperId = obj.id : ''
 
@@ -54,10 +54,15 @@
  	 };
 	};
 
+	export let getOptionLabel = (option, filterText) => {
+  	return option.isCreator ? `Aanmaken \"${filterText}\"` : option.naam_kort;
+	};
+	// vertaling voor de Create optie
 
-
-
-	const toggleNieuweStreper = () => {
+	const toggleNieuweStreper = (event) => {
+		// console.log(event)
+		event?.detail ? streper = event.detail : ''
+		//console.log(typeof event?.detail)
 		showNieuweStreper= !showNieuweStreper;
         getStreper()
         //toggle the Modal, en ververs de drinkers
@@ -113,7 +118,7 @@
 
 <Select 
 
-items={$strepers} {labelIdentifier} {optionIdentifier} {createItem} placeholder="Wie wil er strepen?" on:select={getStreper} isCreatable  />
+items={$strepers} {labelIdentifier} {optionIdentifier} {createItem}  {getOptionLabel} placeholder="Wie wil er strepen?"  on:itemCreated={toggleNieuweStreper} on:select={getStreper} isCreatable  />
 </div>
 
 
