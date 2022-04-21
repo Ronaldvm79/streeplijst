@@ -1,29 +1,28 @@
 <script>
 	import { strepers, addStreep } from '$lib/streepStore';
 	import Modal from './Modal.svelte';
-    import NieuweStreper from './nieuweStreper.svelte';
-    import {notifications} from '$lib/toastStore.js'
+	import NieuweStreper from './nieuweStreper.svelte';
+	import { notifications } from '$lib/toastStore.js';
 	import Select from 'svelte-select';
 
-
-	var streper = '';  // invoerveld streper
+	var selectBox
+	var streper = ''; // invoerveld streper
 	var aantalStrepen = 1; // aantal te strepen drankjes
 	var streperId; // wat is de ID van de streper
 	var streperBekend = false; // is de ingevoerde naam bekend
 	var showNieuweStreper = false; //toggle voor de Modal
-	var value
+	var value;
 	const optionIdentifier = 'naam_kort';
-  	const labelIdentifier = 'naam_kort';
-
+	const labelIdentifier = 'naam_kort';
 
 	// const newstreper = $strepers.map(item => {
-    //   return {
-    //     label: item.naam_kort,
-    //     value: item.id
-    //   };
-    // }); Optie om $strepers de keys van naam te veranderen
-   
-    $:strepers
+	//   return {
+	//     label: item.naam_kort,
+	//     value: item.id
+	//   };
+	// }); Optie om $strepers de keys van naam te veranderen
+
+	$: strepers;
 
 	// const getStreperOld = () => {
 	// 	var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === streper.toLowerCase());
@@ -31,55 +30,58 @@
 	// 	streperBekend ? streperId = obj.id : ''
 
 	// 	//check of Streper bekend is, en haal z'n ID nummer op (op te kunnen synchroniseren)
-	// 	// 
+	// 	//
 	// };
 
-	const getStreper= (event) => {
+	const getStreper = (event) => {
 		// var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === streper.toLowerCase());
 		// obj ? (streperBekend = true) : (streperBekend = false);
 		// streperBekend ? streperId = obj.id : ''
-		console.log(event)
-		var obj = $strepers.find((o) => o.naam_kort.toLowerCase() === event?.detail.naam_kort.toLowerCase());
+		console.log(event);
+		var obj = $strepers.find(
+			(o) => o.naam_kort.toLowerCase() === event?.detail.naam_kort.toLowerCase()
+		);
 		obj ? (streperBekend = true) : (streperBekend = false);
-		streperBekend ? streperId = obj.id : ''
-
-
+		streperBekend ? (streperId = obj.id) : '';
+		event?.detail ? (streper = event.detail) : '';
 		//check of Streper bekend is, en haal z'n ID nummer op (op te kunnen synchroniseren)
 	};
 
 	const createItem = (filterText) => {
- 	return {
-    naam_kort: filterText
-    //id: filterText
- 	 };
+		return {
+			naam_kort: filterText
+			//id: filterText
+		};
 	};
 
 	export let getOptionLabel = (option, filterText) => {
-  	return option.isCreator ? `Aanmaken \"${filterText}\"` : option.naam_kort;
+		return option.isCreator ? `Aanmaken \"${filterText}\"` : option.naam_kort;
 	};
 	// vertaling voor de Create optie
 
 	const toggleNieuweStreper = (event) => {
 		// console.log(event)
-		event?.detail ? streper = event.detail : ''
+		event?.detail ? (streper = event.detail) : '';
 		//console.log(typeof event?.detail)
-		showNieuweStreper= !showNieuweStreper;
-        getStreper()
-        //toggle the Modal, en ververs de drinkers
+		showNieuweStreper = !showNieuweStreper;
+		getStreper();
+		//toggle the Modal, en ververs de drinkers
 	};
 
 	const checkStreep = () => {
-		streperBekend ? addStreep(aantalStrepen, streperId,streper) :notifications.danger('Onbekende Gebruiker! Geen boeking gemaakt!', 2000);
+		streperBekend
+			? addStreep(aantalStrepen, streperId, streper)
+			: notifications.danger('Onbekende Gebruiker! Geen boeking gemaakt!', 2000);
 		streper = '';
 		streperBekend = false;
 		aantalStrepen = 1;
+		selectBox.handleClear();
+		
 	}; // check of er gestreept mag worden **NOG UITWERKEN**
-
-	
 </script>
 
 <div class="flex m-1">
-	<input
+	<!-- <input
 		list="strepers"
 		placeholder="Vul een naam "
 		bind:value={streper}
@@ -93,7 +95,25 @@
 		{#each $strepers as { naam_kort }}
 			<option>{naam_kort}</option>
 		{/each}
-	</datalist>
+	</datalist> -->
+
+	<div id="streperDropDown" class="dropdown m-1  {streperBekend ? 'streper_bekend' : ''}">
+		<!-- <Select items={newstreper} isCreatable on:itemCreated={setStreper}   on:select={getStreperNew} /> -->
+	
+		<Select
+			items={$strepers}
+			{labelIdentifier}
+			{optionIdentifier}
+			{createItem}
+			{getOptionLabel}
+			
+			placeholder="Wie wil er strepen?"
+			on:itemCreated={toggleNieuweStreper}
+			on:select={getStreper}
+			isCreatable
+			bind:this={selectBox}
+		/>
+	</div>
 
 	<select bind:value={aantalStrepen} class="border-2 rounded-lg p-2 ml-1">
 		{#each Array(3) as _, i}
@@ -108,22 +128,14 @@
 
 {#if showNieuweStreper}
 	<Modal on:close={() => toggleNieuweStreper()} titel="Nieuwe Streper">
-		<div slot="body"><NieuweStreper {streper} on:close={() => toggleNieuweStreper()}/></div>
+		<div slot="body"><NieuweStreper {streper} on:close={() => toggleNieuweStreper()} /></div>
 	</Modal>
 {/if}
 
 
-<div id="streperDropDown" class="dropdown m-1  {streperBekend ? 'streper_bekend': ''}"  >
-<!-- <Select items={newstreper} isCreatable on:itemCreated={setStreper}   on:select={getStreperNew} /> -->
-
-<Select 
-
-items={$strepers} {labelIdentifier} {optionIdentifier} {createItem}  {getOptionLabel} placeholder="Wie wil er strepen?"  on:itemCreated={toggleNieuweStreper} on:select={getStreper} isCreatable  />
-</div>
-
 
 <style>
-	.dropdown{
+	.dropdown {
 		--border-radius: 0.5rem;
 		--item-hover-bg: rgb(191 219 254);
 		--width: 230px;
@@ -132,14 +144,9 @@ items={$strepers} {labelIdentifier} {optionIdentifier} {createItem}  {getOptionL
 		--height: 54px;
 		--padding: 0px 8px;
 		--input-font-size: 16px;
-		--placeholder-color: rgb(156 163 175)
-	
-
-		
-
-		
-	}	
-	.streper_bekend{
-		--background: rgb(220 252 231)
+		--placeholder-color: rgb(156 163 175);
+	}
+	.streper_bekend {
+		--background: rgb(220 252 231);
 	}
 </style>
