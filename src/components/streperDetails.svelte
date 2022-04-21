@@ -50,8 +50,8 @@
 
 <div class=" ">
 	<div class="flex items-center justify-between rounded-lg px-3 py-1 m-1 border-2">
-		<div class="flex">
-			<slot name="titel" />
+		<div class="flex font">
+			<slot name="titel" class="font-catamaran"/>
 			{#if streepVerschil > 1}
 				<div class="text-xs mb-2 ml-2 px-2 bg-red-200 text-red-800 rounded-full">Wanbetaler</div>
 			{/if}

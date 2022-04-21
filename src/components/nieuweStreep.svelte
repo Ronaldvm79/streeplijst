@@ -12,7 +12,7 @@
 	var streperBekend = false; // is de ingevoerde naam bekend
 	var showNieuweStreper = false; //toggle voor de Modal
 	var value
-	const optionIdentifier = 'id';
+	const optionIdentifier = 'naam_kort';
   	const labelIdentifier = 'naam_kort';
 
 
@@ -49,7 +49,7 @@
 
 	const createItem = (filterText) => {
  	return {
-    naam_kort: filterText,
+    naam_kort: filterText
     //id: filterText
  	 };
 	};
@@ -69,6 +69,8 @@
 		streperBekend = false;
 		aantalStrepen = 1;
 	}; // check of er gestreept mag worden **NOG UITWERKEN**
+
+	
 </script>
 
 <div class="flex m-1">
@@ -108,7 +110,10 @@
 
 <div id="streperDropDown" class="dropdown m-1  {streperBekend ? 'streper_bekend': ''}"  >
 <!-- <Select items={newstreper} isCreatable on:itemCreated={setStreper}   on:select={getStreperNew} /> -->
-<Select items={$strepers} {createItem}  {labelIdentifier} {optionIdentifier} placeholder="Wie wil er strepen?" on:select={getStreper} isCreatable  />
+
+<Select 
+
+items={$strepers} {labelIdentifier} {optionIdentifier} {createItem} placeholder="Wie wil er strepen?" on:select={getStreper} isCreatable  />
 </div>
 
 
