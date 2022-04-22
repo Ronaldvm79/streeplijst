@@ -8,14 +8,15 @@
 </script>
 
 {#each Array(vijf) as _  }
-<img src="vijf.svg" alt="vijf" />
+<img class="fill-white" src="vijf.svg" alt="vijf" />
 {/each}
 {#each Array(een) as _}
-<img src="een.svg" alt="een" />
+<img class="fill-white" src="een.svg" alt="een" />
     {/each}
 
     <style>
         img {
-            display: inline
+            display: inline;
+            filter: invert(87%) sepia(15%) saturate(201%) hue-rotate(174deg) brightness(104%) contrast(77%);
         }
     </style>
