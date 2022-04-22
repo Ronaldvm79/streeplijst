@@ -40,6 +40,8 @@
 			(o) => o.naam_kort.toLowerCase() === justValue?.toLowerCase()
 		);
 		obj ? (streperBekend = true) : (streperBekend = false);
+		streperBekend ? (streperId = obj.id) : '';
+		streperBekend ? (streper = obj.naam_kort) : '';
 		console.log(justValue)
 	}
 
