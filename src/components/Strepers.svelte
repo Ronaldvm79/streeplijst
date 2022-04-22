@@ -39,7 +39,7 @@
 
 
 		<div class="bg-yellow-200 flex items-center justify-center w-24 p-1 rounded-2xl my-6 text-sm">
-		  <img src="images/time.png" alt="" /> 10:00 am
+		  <img src="" alt="" /> 10:00 am
 		</div>
 	  </div>
 	</div>
@@ -61,7 +61,7 @@
 		</div>
 
 		<div class="event-timing">
-		  <img src="images/time.png" alt="" /> 10:45 am
+		  <img src="" alt="" /> 10:45 am
 		</div>
 	  </div>
 	</div>
@@ -85,7 +85,7 @@
 		</div>
 
 		<div class="event-timing">
-		  <img src="images/time.png" alt="" /> 10:00 am
+		  <img src="" alt="" /> 10:00 am
 		</div>
 	  </div>
 	</div>
@@ -107,7 +107,7 @@
 		</div>
 
 		<div class="event-timing">
-		  <img src="images/time.png" alt="" /> 10:30 am
+		  <img src="" alt="" /> 10:30 am
 		</div>
 	  </div>
 	</div>
@@ -129,7 +129,7 @@
 		</div>
 
 		<div class="event-timing">
-		  <img src="images/time.png" alt="" /> 10:00 am
+		  <img src="" alt="" /> 10:00 am
 		</div>
 	  </div>
 	</div>
@@ -151,7 +151,7 @@
 		</div>
 
 		<div class="event-timing">
-		  <img src="images/time.png" alt="" /> 10:00 am
+		  <img src="" alt="" /> 10:00 am
 		</div>
 	  </div>
 	</div>
