@@ -40,19 +40,19 @@
 
 <div class="flex flex-col">
 	{#if error}<span class="text-red-400">{error}</span>{/if}
-    <label class="mb-2" for="naam"> Streepnaam: </label>
+    <label class="mb-2 text-lg text-zinc-100" for="naam"> Streepnaam: </label>
 	<input
-		class="border-2 rounded-lg p-2 mb-2 "
+		class="border-2 p-2 mb-2 "
 		on:blur={() => validateStreper()}
 		bind:value={streper}
 	/>
 	{#if streperBekend}<span class="text-red-400">Deze streper bestaat al!</span>{/if}
-	<label class="mb-2" for="naam"> Voor en Achternaam: </label>
+	<label class="mb-2 text-lg text-zinc-100" for="naam"> Voor en Achternaam: </label>
 
-	<input class="border-2 rounded-lg p-2 mb-2 " bind:value={naam} />
-	<label class="mb-2" for="email"> Email: </label>
+	<input class="border-2 p-2 mb-2 " bind:value={naam} />
+	<label class="mb-2 text-lg text-zinc-100" for="email"> Email: </label>
 	<input
-		class="border-2 rounded-lg p-2 mb-2 "
+		class="border-2 p-2 mb-2 "
 		type="email"
 		bind:value={email}
 		on:blur={() => validateEmail()}
@@ -62,17 +62,17 @@
 	<div class="flex justify-between items-center">
 		<div class="flex items-center">
 			<div
-				class="w-12 h-8 flex items-center bg-gray-300 rounded-full p-1 duration-300 ease-in-out"
+				class="w-12 h-8 flex items-center  rounded-full p-1 duration-300 ease-in-out"
 				on:click={() => (bier = !bier)}
-				class:bg-blue-400={bier}
+				class:bg-cyan-500={bier} class:bg-zinc-300={!bier}
 			>
 				<div
-					class="bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ease-in-out hover:bg-blue-500"
+					class="bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ease-in-out hover:bg-cyan-600"
 					class:translate-x-4={bier}
 				/>
 			</div>
-			18+
+			<label class="ml-1 text-lg text-zinc-100" for="bier"> 18+ </label>
 		</div>
-		<button class="btn" on:click={() => slaOp()}> Sla Op</button>
+		<button class="appearance-none w-24 text-center bg-cyan-600 p-2 mt-2 ml-1 h-12 cursor-pointer" on:click={() => slaOp()}> Sla Op</button>
 	</div>
 </div>

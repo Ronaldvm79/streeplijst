@@ -7,10 +7,13 @@
 	// default heart icon
 	export let d =
 		'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z';
+
+		//class="relative inline-block"
 </script>
 
 <svg
-	class="relative inline-block"
+	
+	class={$$props.class}
 	viewBox="0 0 24 24"
 	{fill}
 	width={size}
@@ -19,3 +22,5 @@
 >
 	<path {d} {stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 </svg>
+
+

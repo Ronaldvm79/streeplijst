@@ -5,6 +5,7 @@ import {notifications} from '$lib/toastStore.js'
 export const strepen = writable([]);
 export const strepers = writable();
 export const strepenTotaal = writable();
+export const currentStreper = writable();
 
 export const loading = writable(false);
 
@@ -17,7 +18,13 @@ const strepenSub = supabase
 	.subscribe();
 	// Als er gestreept wordt, de totalen opnieuw ophalen - op basis van een Subscription
 
+export const setCurrentStreper = (naam_kort) =>{
+	currentStreper.set(naam_kort)
+} 
+
 export const getStrepers = async () => {
+
+
 	const { data, error } = await supabase.from('gebruiker').select('*');
 	if (error) {
 		console.log(error);
@@ -26,23 +33,61 @@ export const getStrepers = async () => {
 }; // Gebruikers (strepers) ophalen
 
 export const getStrepen = async () => {
-	const { data, error } = await supabase.from('strepen').select('*');
+	let date1 = new Date()
+	let date2= new Date()
+	date2.setDate(date2.getDate()-30)
+	const dateString1 = date1.toISOString();
+	const dateString2 = date2.toISOString();
+	const { data, error } = await supabase.from('strepen').select('*').lt('created_at', dateString1).gte('created_at', dateString2);
+	
 	if (error) {
 		console.log(error);
 	}
 	strepen.set(data);
-}; // Strepen ophalen
+}; // Strepen ophalen - Toevoeging gemaakt om een periode van 1 maand te bepalen - ivm grote query
 
 export const getStrepenTotaal = async () => {
 	const { data, error } = await supabase.rpc('strepentotaal').select('*');
-
+	if (error) {
+		console.log(error);
+	}
 	strepenTotaal.set(data);
 };
 getStrepenTotaal(); // Totalen ophalen
 
-export const addStreep = async (aantal, gebruiker,streper) => {
+export const getFavorieteDag = async (id) => {
+	const { data, error } = await supabase.rpc('favdag', {streper: id}).select('*');
+	if (error) {
+		console.log(error);
+	}
+	
+	return (data[0].dag)
+};
+
+export const getGemStrepen = async (id) => {
+	const { data, error } = await supabase.rpc('gemstrepen', {streper: id}).select('*');
+	if (error) {
+		console.log(error);
+	}
+	
+	return (data[0].gemiddelde)
+};
+
+
+export const getStrepenTotGebr = async (id) => {
+	const { data, error } = await supabase.rpc('strepentotaalgebruiker', {streper: id}).select('*');
+	if (error) {
+		console.log(error);
+	}
+	
+	return (data[0].aantal)
+};
+
+
+export const addStreep = async (aantal, gebruiker,streper, type,krat) => {
 	var datum = new Date()
-	const { data, error } = await supabase.from('strepen').insert([{ created_at: datum, aantal, gebruiker }]);
+	console.log(datum)
+	const { data, error } = await supabase.from('strepen').insert([{ created_at: datum, aantal, gebruiker,type,krat }]);
 
 	if (error) {
 		return console.error(error);
@@ -65,7 +110,7 @@ export const addStreper = async (email, naam_lang, naam_kort, bier) => {
 }; // Nieuwe Streper toevoegen (en store updaten)
 
 
-export const setBetaald = async (id, naam_kort) => {
+export const setBetaald = async (id, naam_kort,aantal, type) => {
 	// var datum = !betaald ? new Date().toLocaleString() : null;
 	var datum = new Date()
 
@@ -78,7 +123,16 @@ export const setBetaald = async (id, naam_kort) => {
 	if (error) {
 		console.log(error);
 	}
+	aantal = -Math.abs(aantal)
+	
+	const { error: error2 } = await supabase.from('strepen').insert([{ created_at: datum, aantal, gebruiker: id, betaal_datum: datum, betaald:true, type}]);
+
+	if (error2) {
+		return console.error(error2);
+	}
+
 	notifications.success(naam_kort +' heeft betaald!!', 1500)
+	
 	strepen.update((streep) => {
 		
 		for (let i = 0; i < streep.length; i++) {

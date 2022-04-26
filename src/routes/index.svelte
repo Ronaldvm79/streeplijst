@@ -24,9 +24,11 @@
 {#await getData()}
 .	
 {:then}
+
 	<NieuweStreep />
 	<Strepers />
 	<Toast />
+
 {:catch error}
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>
