@@ -116,7 +116,7 @@
 	<div class="flex flex-col justify-center items-center">
 		<div
 			id="streperDropDown"
-			class="dropdown m-1 text-2xl {streperBekend && streper !== '' ? 'streper_bekend' : ''}"
+			class=" dropdown m-1 text-2xl  {streperBekend && streper !== '' ? 'streper_bekend' : ''}"
 		>
 			<!-- <Select items={newstreper} isCreatable on:itemCreated={setStreper}   on:select={getStreperNew} /> -->
 			
@@ -139,18 +139,18 @@
 		<div class="flex justify-center items-center -mt-1 ml-32 ">
 			<select
 				bind:value={aantalStrepen}
-				class="appearance-none w-24 text-center bg-cyan-600 p-2 ml-1 h-16 cursor-pointer"
+				class="appearance-none w-24 text-center bg-gradient-to-br text-zinc-100 text-xl font-bold from-cyan-600 to-cyan-700 p-2 ml-1 h-16 cursor-pointer"
 				on:change={() => checkStreep()}
 			>
-				<option value="#">#</option>
+				<option class="bg-cyan-600" value="#">#</option>
 				{#each Array(16) as _, i}
-					<option value={i + 1}>{i + 1}</option>
+					<option class="bg-cyan-600" value={i + 1}>{i + 1}</option>
 				{/each}
 			</select>
-			<button class="w-24 text-center bg-cyan-600 p-2 ml-1 h-16" on:click={() => checkStreep(8)}
+			<button class="w-24 text-center bg-gradient-to-br text-zinc-100 text-xl font-bold from-cyan-600 to-cyan-700 p-2 ml-1 h-16" on:click={() => checkStreep(8)}
 				>8</button
 			>
-			<button class="w-24 text-center bg-cyan-600 p-2 ml-1 h-16" on:click={() => checkStreep(24)}
+			<button class="w-24 text-center bg-gradient-to-br text-zinc-100 text-xl font-bold from-cyan-600 to-cyan-700 p-2 ml-1 h-16" on:click={() => checkStreep(24)}
 				>Krat</button
 			>
 			<!-- <button class="btn" disabled={streper == ''} on:click={() => checkStreep()}>Streep</button>
@@ -169,6 +169,7 @@
 <style>
 	.dropdown {
 		--item-hover-bg: rgb(8, 145, 178);
+		--item-is-active-bg: rgb(8, 145, 178);
 		--width: 430px;
 		/* --padding: 30px 8px; */
 		--selected-item-font-size: 24px;
@@ -178,6 +179,7 @@
 		--placeholder-color: rgb(156 163 175);
 	}
 	.streper_bekend {
-		--background: rgb(220 252 231);
+		--background: #b2ebf2
 	}
+	
 </style>

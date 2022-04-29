@@ -6,6 +6,7 @@ export const strepen = writable([]);
 export const strepers = writable();
 export const strepenTotaal = writable();
 export const currentStreper = writable();
+export const totalen = writable([])
 
 export const loading = writable(false);
 
@@ -13,6 +14,7 @@ const strepenSub = supabase
 	.from('strepen')
 	.on('*', (payload) => {
 		getStrepenTotaal();
+		getTotalen();
 		//console.log(payload);
 	})
 	.subscribe();
@@ -20,7 +22,17 @@ const strepenSub = supabase
 
 export const setCurrentStreper = (naam_kort) =>{
 	currentStreper.set(naam_kort)
-} 
+} //store om de geselecteerde streper vanuit de strepen lijst op te slaan en te gebruiken in de dropdown
+
+export const getTotalen = async () => {
+	const { data, error } = await supabase.rpc('totalen').select('*');
+	if (error) {
+		console.log(error);
+	}
+
+	totalen.set(data[0])
+}
+
 
 export const getStrepers = async () => {
 
@@ -62,6 +74,15 @@ export const getFavorieteDag = async (id) => {
 	}
 	
 	return (data[0].dag)
+};
+
+export const getAantalDagMaand = async () => {
+	const { data, error } = await supabase.rpc('aantalperdagmaand').select('*');
+	if (error) {
+		console.log(error);
+	}
+	
+	return (data)
 };
 
 export const getGemStrepen = async (id) => {

@@ -111,12 +111,12 @@
 		</div> Tweede Versie -->
 
 <div
-	class="grid overflow-hidden grid-cols-[120px_minmax(0,1fr)_minmax(0,1fr)_110px] grid-rows-[60px_40px_10px]  mx-8 mt-2 bg-slate-700 hover:bg-slate-600 " on:click={()=>setCurrentStreper(naam_kort)}
+	class="grid overflow-hidden grid-cols-[120px_minmax(0,1fr)_minmax(0,1fr)_110px] grid-rows-[60px_40px_10px]  mx-8 mt-2 bg-zinc-100 dark:bg-slate-700 dark:hover:bg-slate-600 hover:bg-zinc-200" on:click={()=>setCurrentStreper(naam_kort)}
 >
 	<div
-		class="box row-span-2 border-cyan-500 border-l-8 flex flex-col items-center justify-center"
+		class="box row-span-2 border-cyan-500  border-l-8 flex flex-col items-center justify-center"
 	>
-		<div class="flex font-extrabold text-4xl text-zinc-100 items-center justify-center">
+		<div class="flex font-extrabold text-4xl dark:text-zinc-100 text-slate-700 items-center justify-center">
 			<div
 				class="flex items-center justify-center rounded-full w-4  h-4  text-zinc-400 hover:text-zinc-100 transition duration-500 border-zinc-400 hover:border-zinc-100 hover:border-2 text-base mr-1 mt-1 "
 				on:click|stopPropagation={() => addStreep(-1, gebruiker, naam_kort, 'CORR')}	>
@@ -136,7 +136,7 @@
 		</div>
 	</div>
 	<div
-		class="box col-start-2 col-span-1 text-3xl uppercase text-zinc-100 pt-3 px-4 font-semibold"
+		class="box col-start-2 col-span-1 text-3xl uppercase dark:text-zinc-100 text-slate-700 pt-3 px-4 font-semibold"
 	>
 		{naam_kort}
 	</div>
@@ -151,7 +151,7 @@
 	</div>
 	<div class="box col-span-4 border-slate-500 border-b-2" />
 	<div
-		class="box row-start-1 row-end-3 col-start-4 flex flex-col justify-center items-center text-2xl font-bold text-zinc-100"
+		class="box row-start-1 row-end-3 col-start-4 flex flex-col justify-center items-center text-2xl font-bold dark:text-zinc-100 text-slate-700"
 	>
 		€ {aantal.toFixed(2)}
 		<div class="flex flex-row pt-1">

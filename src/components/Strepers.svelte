@@ -5,6 +5,9 @@
 
 
 	var asc = true;
+	var totaal 
+
+	$: totaal = $strepenTotaal.reduce((totaal,a) => totaal + a.aantal, 0   )
 
 	const sortStrepen = () => {
 		$strepenTotaal = $strepenTotaal.sort((a, b) =>
@@ -18,10 +21,12 @@
 
 {#each $strepenTotaal as { gebruiker, aantal, naam_kort } (gebruiker)}
 	<div animate:flip>
-		<StreperDetails {gebruiker} {naam_kort} {aantal} >
+		<StreperDetails {gebruiker} {naam_kort} {aantal} />
 			<!-- <span slot="titel">{naam_kort} ({aantal}) </span> -->
-		</StreperDetails>
+		
 	</div>
 {/each}
+{totaal}
 
 <button on:click={() => sortStrepen()}> sort </button>
+
