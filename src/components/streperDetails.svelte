@@ -4,9 +4,9 @@
 	export let naam_kort;
 	export let aantal;
 
-	import { slide } from 'svelte/transition';
+	
 	import { strepen, setBetaald, addStreep,setCurrentStreper } from '$lib/streepStore';
-	import { convDatum } from '$lib/utils';
+
 	import Icon from '../components/Icon.svelte';
 	import { successIcon, euroIcon, infoIcon } from '$lib/icons';
 	import Modal from '../components/Modal.svelte'
@@ -18,6 +18,9 @@
 	var streepDrinkerBet;
 	var streepOudste;
 	var streepVerschil;
+	var isBetaald = false
+	var isInfo = false
+	var isTikkie = false
 
 	$: streepDrinkerNB = $strepen.filter(
 		(drinker) => drinker.gebruiker == gebruiker && drinker.betaald == false
@@ -151,11 +154,11 @@
 	</div>
 	<div class="box col-span-4 border-slate-500 border-b-2" />
 	<div
-		class="box row-start-1 row-end-3 col-start-4 flex flex-col justify-center items-center text-2xl font-bold dark:text-zinc-100 text-slate-700"
+		class="box row-start-1 row-end-3 col-start-4 flex flex-col mt-2 items-center text-2xl font-bold dark:text-zinc-100 text-slate-700"
 	>
 		€ {aantal.toFixed(2)}
 		<div class="flex flex-row pt-1">
-			<div on:click|stopPropagation={() => setBetaald(gebruiker, naam_kort, aantal, 'BET')}>
+			<div on:click|stopPropagation={() => setBetaald(gebruiker, naam_kort, aantal, 'BET')} on:mouseenter={()=>isBetaald=true} on:mouseleave={()=>isBetaald=false}>
 				<Icon
 					d={successIcon}
 					class="hover:text-green-600 transition duration-500 text-zinc-400"
@@ -163,7 +166,7 @@
 					size="1.5em"
 				/>
 			</div>
-			<div  on:click|stopPropagation={toggleDetails}>
+			<div  on:click|stopPropagation={toggleDetails} on:mouseenter={()=>isInfo=true} on:mouseleave={()=>isInfo=false}>
 			<Icon
 				d={infoIcon}
 				class="hover:text-blue-600 transition duration-500 text-zinc-400"
@@ -171,13 +174,24 @@
 				size="1.5em"
 			/>
 		</div>
+			<div on:mouseenter={()=>isTikkie=true} on:mouseleave={()=>isTikkie=false}>
 			<Icon
 				d={euroIcon}
 				class="hover:text-cyan-500 transition duration-500 text-zinc-400"
 				stroke="currentColor"
 				size="1.5em"
 			/>
+			</div>
 		</div>
+		{#if isBetaald}
+		<span class="text-xs  font-thin text-green-500">Markeer als Betaald!</span>
+		{:else if isInfo}
+		<span class="text-xs  font-thin text-blue-600">Meer info..</span>
+		{:else if isTikkie}
+		<span class="text-xs  font-thin text-cyan-500">Betaalverzoek</span>
+		{:else}
+		<span />
+		{/if}
 	</div>
 	<div class="box row-start-1 col-start-3" />
 </div>

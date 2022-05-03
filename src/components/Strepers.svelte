@@ -2,6 +2,7 @@
 	import { strepenTotaal } from '$lib/streepStore';
 	import StreperDetails from '../components/streperDetails.svelte';
 	import { flip } from 'svelte/animate';
+import Totaal from './Totaal.svelte';
 
 
 	var asc = true;
@@ -26,7 +27,8 @@
 		
 	</div>
 {/each}
-{totaal}
-
+{#if  totaal>0  }
+<Totaal {totaal}/>
+{/if}
 <button on:click={() => sortStrepen()}> sort </button>
 

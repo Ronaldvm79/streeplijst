@@ -48,7 +48,7 @@
 		</div>
 	{/if}
 
-<div class=" text-blue-400 flex justify-center text-xl font-poppins font-bold"><h1>Streeplijst</h1></div>
+<div class=" text-blue-400 flex justify-center text-xl font-poppins font-bold h-32"><h1>Streeplijst</h1></div>
 
 {#await getData()}
 .	

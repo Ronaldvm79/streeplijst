@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import {getAantalDagMaand, strepen} from "$lib/streepStore"
+    import {getAantalDagMaand, getAantalMaandJaar} from "$lib/streepStore"
     import Chart from "chart.js/auto";
 
       let ctx;
@@ -16,12 +16,17 @@
     //    $: dag = aantalpermaand.map(function(dag){return dag.created_at;})
     //    $ aantal = aantalpermaand.map(function(strepen){return strepen.aantal;}),
 		
-
+$:grafType
     onMount(async () => {
         console.log(grafType)
         switch (grafType){
             case 'aantaldagmaand':
             grafdata = await getAantalDagMaand()   ; 
+            console.log(grafdata)
+            break;
+            case 'aantalmaandjaar':
+            grafdata = await getAantalMaandJaar()   ; 
+            console.log(grafdata)
             break;
             }
         

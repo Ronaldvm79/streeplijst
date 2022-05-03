@@ -22,9 +22,9 @@
     
     
 
-    $: totaalStrepen.set($totalen['streeptotaal'])
-    $: gemiddeldStrepen.set($totalen['gemtotaal'])
-    $: aantalStrepers.set($totalen['gebtotaal'])
+    $: isJaar ? totaalStrepen.set($totalen['streeptotaal']) : totaalStrepen.set($totalen['streepmaand'])
+    $: isJaar ? gemiddeldStrepen.set($totalen['gemtotaal']) : gemiddeldStrepen.set($totalen['gemmaand'])
+    $: isJaar ? aantalStrepers.set($totalen['gebtotaal']) : aantalStrepers.set($totalen['gebmaand'])
 
     const toggleJaar = () => {
         !isJaar ? totaalStrepen.set($totalen['streeptotaal']) : totaalStrepen.set($totalen['streepmaand'])
@@ -81,7 +81,7 @@
            
 		          <div class="flex flex-row justify-start relative">  
 					  <div class="text-zinc-500 italic text-xl flex-initial absolute left-1/2 -translate-x-1/2">strepen</div>
-					<div class ="flex-initial ml-auto mr-4 mt-1"  on:click={()=>toggleGrafiek('aantaldagmaand')}> <Icon
+					<div class ="flex-initial ml-auto mr-4 mt-1"  on:click={()=>toggleGrafiek(isJaar ? 'aantalmaandjaar': 'aantaldagmaand')}> <Icon
 						d={grafiekIcon}
 						class="hover:text-blue-600 transition duration-500 text-zinc-400"
 						stroke="currentColor"
