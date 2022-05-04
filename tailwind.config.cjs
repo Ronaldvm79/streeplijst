@@ -5,6 +5,7 @@ const config = {
 		extend: {
 			fontFamily: {
 				poppins: ["Poppins", "cursive"],
+				playball: ["Playball", "cursive"],
 		},
 	},
 

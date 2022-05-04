@@ -114,7 +114,7 @@
 		</div> Tweede Versie -->
 
 <div
-	class="grid overflow-hidden grid-cols-[120px_minmax(0,1fr)_minmax(0,1fr)_110px] grid-rows-[60px_40px_10px]  mx-8 mt-2 bg-zinc-100 dark:bg-slate-700 dark:hover:bg-slate-600 hover:bg-zinc-200" on:click={()=>setCurrentStreper(naam_kort)}
+	class="grid overflow-hidden grid-cols-[120px_minmax(0,1fr)_minmax(0,1fr)_110px] grid-rows-[60px_40px_10px]  mx-8 mt-2 bg-zinc-100 dark:bg-slate-700 dark:bg-opacity-90 dark:hover:bg-slate-600 hover:bg-zinc-200" on:click={()=>setCurrentStreper(naam_kort)}
 >
 	<div
 		class="box row-span-2 border-cyan-500  border-l-8 flex flex-col items-center justify-center"

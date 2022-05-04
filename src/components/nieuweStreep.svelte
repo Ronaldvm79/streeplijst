@@ -113,10 +113,10 @@
 			<option>{naam_kort}</option>
 		{/each}
 	</datalist> -->
-	<div class="flex flex-col justify-center items-center">
+	<div class="flex flex-col justify-center items-center 0">
 		<div
 			id="streperDropDown"
-			class=" dropdown m-1 text-2xl  {streperBekend && streper !== '' ? 'streper_bekend' : ''}"
+			class=" dropdown m-1 text-3xl font-semibold {streperBekend && streper !== '' ? 'streper_bekend' : ''}"
 		>
 			<!-- <Select items={newstreper} isCreatable on:itemCreated={setStreper}   on:select={getStreperNew} /> -->
 			
@@ -169,17 +169,28 @@
 <style>
 	.dropdown {
 		--item-hover-bg: rgb(8, 145, 178);
-		--item-is-active-bg: rgb(8, 145, 178);
+		--item-is-active-bg: #06b6d4;
 		--width: 430px;
 		/* --padding: 30px 8px; */
-		--selected-item-font-size: 24px;
+		--selected-item-font-size: 12px;
 		--height: 72px;
 		--padding: 0px 8px;
-		--input-font-size: 24px;
+		--input-font-size: 30px;
 		--placeholder-color: rgb(156 163 175);
+		--background: rgba(51,65,85,0.9);
+		--border: rgba(0,0,0) solid 2px;
+		--border-focus-color: rgb(8, 145, 178);
+		--list-background: #f4f4f5;
+		--selected-item-color: #f4f4f5;
+		
+
 	}
+		
+
 	.streper_bekend {
-		--background: #b2ebf2
+		/* --background: #b2ebf2 */
+		--border: rgb(8, 145, 178) solid 4px;
+		
 	}
 	
 </style>

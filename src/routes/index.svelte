@@ -31,7 +31,7 @@
 
 
 </script>
-{#if darkModeReady}
+<!-- {#if darkModeReady}
 		<div class="h-8 toggle" in:fade={{ duration: 800 }}>
 			<input
 				type="checkbox"
@@ -46,9 +46,9 @@
 				data-dark={darkMode ? '🌒' : '🌞'}
 			/>
 		</div>
-	{/if}
+	{/if} -->
 
-<div class=" text-blue-400 flex justify-center text-xl font-poppins font-bold h-32"><h1>Streeplijst</h1></div>
+<div class="mx-12 -rotate-12 text-transparent bg-clip-text bg-gradient-to-b  from-cyan-400 via-cyan-600 to-cyan-400 flex justify-center text-[164px] outline-4 font-playball  -translate-x-28 outline-shadow"><h1>Streeplijst</h1></div>
 
 {#await getData()}
 .	
@@ -82,6 +82,13 @@
 	.toggle input[type='checkbox']:checked ~ label::after {
 		transform: translateX(24px);
 	}
+
+	.outline-shadow {
+		-webkit-filter: drop-shadow(6px 6px #333);
+          filter: drop-shadow(6px 6px #333);
+	}
+
+	
 </style>
 
 
