@@ -20,7 +20,7 @@
 				class="p-1 bg-zinc-100 hover:bg-zinc-300 rounded-full ml-4"
 				on:click={() => dispatch('close')}
 			>
-				<Icon d={closeIcon} stroke="black" size="1.5em" />
+				<Icon d={closeIcon} class="stroke-slate-700" size="1.5em" />
 			</button>
 		</div>
 		<div class="content p-8">

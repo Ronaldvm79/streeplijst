@@ -161,24 +161,24 @@
 			<div on:click|stopPropagation={() => setBetaald(gebruiker, naam_kort, aantal, 'BET')} on:mouseenter={()=>isBetaald=true} on:mouseleave={()=>isBetaald=false}>
 				<Icon
 					d={successIcon}
-					class="hover:text-green-600 transition duration-500 text-zinc-400"
-					stroke="currentColor"
+					class="hover:stroke-green-600 transition duration-500 stroke-zinc-400"
+					
 					size="1.5em"
 				/>
 			</div>
 			<div  on:click|stopPropagation={toggleDetails} on:mouseenter={()=>isInfo=true} on:mouseleave={()=>isInfo=false}>
 			<Icon
 				d={infoIcon}
-				class="hover:text-blue-600 transition duration-500 text-zinc-400"
-				stroke="currentColor"
+				class="hover:stroke-blue-600 transition duration-500 stroke-zinc-400"
+				
 				size="1.5em"
 			/>
 		</div>
 			<div on:mouseenter={()=>isTikkie=true} on:mouseleave={()=>isTikkie=false}>
 			<Icon
 				d={euroIcon}
-				class="hover:text-cyan-500 transition duration-500 text-zinc-400"
-				stroke="currentColor"
+				class="hover:stroke-cyan-500 transition duration-500 stroke-zinc-400"
+				
 				size="1.5em"
 			/>
 			</div>

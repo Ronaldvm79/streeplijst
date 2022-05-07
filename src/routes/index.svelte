@@ -5,6 +5,7 @@
 	import NieuweStreep from '../components/nieuweStreep.svelte';
 	import Toast from '../components/Toast.svelte'
 	import Totalen from '../components/Totalen.svelte'
+
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
@@ -56,6 +57,7 @@
 
 	<NieuweStreep />
 	<Strepers />
+
 	<Totalen />
 
 	<Toast />

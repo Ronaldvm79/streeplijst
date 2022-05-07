@@ -13,14 +13,14 @@
 
 <svg
 	
-	class={$$props.class}
+	class="{$$props.class}"
 	viewBox="0 0 24 24"
 	{fill}
 	width={size}
 	height={size}
 	xmlns="http://www.w3.org/2000/svg"
 >
-	<path {d} {stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+	<path {d} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 </svg>
 
 

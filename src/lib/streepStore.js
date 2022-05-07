@@ -1,6 +1,9 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import supabase from '$lib/db.js';
 import { notifications } from '$lib/toastStore.js';
+import { sortStrepen } from '$lib/utils';
+import { sortAsc, sortType } from './sortStore';
+
 
 export const strepen = writable([]);
 export const strepers = writable();
@@ -15,6 +18,7 @@ const strepenSub = supabase
 	.on('*', (payload) => {
 		getStrepenTotaal();
 		getTotalen();
+		
 		//console.log(payload);
 	})
 	.subscribe();
@@ -65,6 +69,7 @@ export const getStrepenTotaal = async () => {
 		console.log(error);
 	}
 	strepenTotaal.set(data);
+	sortStrepen(get(sortAsc),get(sortType))
 };
 getStrepenTotaal(); // Totalen ophalen
 
