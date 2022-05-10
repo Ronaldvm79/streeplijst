@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import {getAantalDagMaand, getAantalMaandJaar} from "$lib/streepStore"
-    import Chart from "chart.js/auto";
+    import Chart from "chart.js/auto/auto.esm";
 
       let ctx;
   	let myChart
