@@ -182,7 +182,7 @@
 		--border-focus-color: rgb(8, 145, 178);
 		--list-background: #f4f4f5;
 		--selected-item-color: #f4f4f5;
-		
+		--clear-item-color: rgb(156 163 175);
 
 	}
 		

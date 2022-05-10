@@ -75,7 +75,7 @@
           
 		</div>
 		<div class="box row-span-2 col-start-2 flex flex-col justify-center ">
-		
+			
          
             <div class="text-zinc-100 text-3xl font-bold self-center">{$totaalStrepen.toFixed()} </div>
            
@@ -83,8 +83,8 @@
 					  <div class="text-zinc-500 italic text-xl flex-initial absolute left-1/2 -translate-x-1/2">strepen</div>
 					<div class ="flex-initial ml-auto mr-4 mt-1"  on:click={()=>toggleGrafiek(isJaar ? 'aantalmaandjaar': 'aantaldagmaand')}> <Icon
 						d={grafiekIcon}
-						class="hover:text-blue-600 transition duration-500 text-zinc-400"
-						stroke="currentColor"
+						class="hover:text-blue-600 stroke-zinc-400 transition duration-500 text-zinc-400"
+						
 						size="1.5em"
 					/>
 					</div>

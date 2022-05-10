@@ -40,5 +40,5 @@
 {/if}
 
 
-<Sortering />
+<!-- <Sortering /> -->
 
