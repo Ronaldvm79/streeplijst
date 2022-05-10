@@ -1,6 +1,6 @@
 <script>
 	export let color = '#4A5568';
-	export let stroke = color;
+	//export let stroke = color;
 	export let filled = false;
 	export let fill = filled ? color : 'none';
 	export let size = '1em'; // default 1em match the parent element

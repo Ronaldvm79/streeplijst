@@ -67,7 +67,7 @@
 	<pre>{error}</pre>
 {/await}
 
-<style type="postcss">
+<!-- <style type="postcss">
 		.toggle input[type='checkbox'] {
 		display: none;
 	}
@@ -91,6 +91,6 @@
 	}
 
 	
-</style>
+</style> -->
 
 
